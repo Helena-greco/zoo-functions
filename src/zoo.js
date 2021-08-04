@@ -37,8 +37,8 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
-  const checkManagers = employees.map((person) => person.managers); // novo array só de gerentes, sem alterar o original.
-  return checkManagers.some((managerId) => managerId.includes(id)); // confere se pelo menos um nome do manager contém o parâmetro Id dado é true ou false.
+  const checkManagers = employees.some((managerId) => managerId.managers.includes(id)); // confere se pelo menos um nome do manager contém o parâmetro Id dado se é true ou false.
+  return checkManagers;
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // default parameters, parâmetro definido para não dar erro na função.
