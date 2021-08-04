@@ -30,6 +30,8 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  const newEmployee = { ...personalInfo, ...associatedWith }; // spread operator para juntar os valores dos objs.
+  return newEmployee;
 }
 
 function isManager(id) {
