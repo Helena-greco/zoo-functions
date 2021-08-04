@@ -4,7 +4,7 @@ const { employees } = require('./data');
 
 function getSpeciesByIds(...ids) { // todos os elementos id como parâmetro.
   // seu código aqui
-  const speciesByIds = species.filter((specie, index) => specie.id === ids[index]); // cria um novo array que passam no teste que contém no nome do elemento o parâmetro passado. (id)
+  const speciesByIds = species.filter((specie, index) => specie.id === ids[index]); // cria um novo array que passa na condição do id ser estritamente igual.
   return speciesByIds;
 }
 
@@ -34,13 +34,14 @@ function createEmployee(personalInfo, associatedWith) {
   return newEmployee;
 }
 
+/** Ref: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/includes */
 function isManager(id) {
   // seu código aqui
   const checkManagers = employees.some((managerId) => managerId.managers.includes(id)); // confere se pelo menos um nome do manager contém o parâmetro Id dado se é true ou false.
   return checkManagers;
 }
 
-function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // default parameters, parâmetro definido para não dar erro na função.
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // default parameters, parâmetro definido para definir o valor do elemento no obj.
   // seu código aqui
   const newEmployee = employees.push({
     id,
