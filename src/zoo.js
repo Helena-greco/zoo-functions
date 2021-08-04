@@ -7,8 +7,11 @@ function getSpeciesByIds(...ids) { // todos os elementos id como parâmetro.
   return speciesByIds;
 }
 
-function getAnimalsOlderThan(animal, age) {
+function getAnimalsOlderThan(animal, ages) {
   // seu código aqui
+  const animals = species.find((animalName) => animalName.name === animal); // Procurar pelo nome.
+  return animals.residents.every((idade) => idade.age >= ages);
+  // verificar se todas as idades possuem a idade mínima específica. Retorna true ou false.
 }
 
 function getEmployeeByName(employeeName) {
