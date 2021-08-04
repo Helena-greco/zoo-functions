@@ -2,10 +2,9 @@ const { species } = require('./data');
 const data = require('./data');
 const { employees } = require('./data');
 
-/** Ref: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/includes */
 function getSpeciesByIds(...ids) { // todos os elementos id como parâmetro.
   // seu código aqui
-  const speciesByIds = species.filter(({ id }) => ids.includes(id)); // cria um novo array que passam no teste que contém no nome do elemento o parâmetro passado. (id)
+  const speciesByIds = species.filter((specie, index) => specie.id === ids[index]); // cria um novo array que passam no teste que contém no nome do elemento o parâmetro passado. (id)
   return speciesByIds;
 }
 
