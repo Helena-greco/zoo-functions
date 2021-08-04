@@ -2,9 +2,10 @@ const { species } = require('./data');
 const data = require('./data');
 const { employees } = require('./data');
 
+/** Ref: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/includes */
 function getSpeciesByIds(...ids) { // todos os elementos id como parâmetro.
   // seu código aqui
-  const speciesByIds = species.filter(({ id }) => ids.includes(id)); // cria um novo array que incluem no nome (id)
+  const speciesByIds = species.filter(({ id }) => ids.includes(id)); // cria um novo array que passam no teste que contém no nome do elemento o parâmetro passado. (id)
   return speciesByIds;
 }
 
@@ -19,12 +20,12 @@ function getAnimalsOlderThan(animal, ages) {
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
-  // reduzir o array pelo nome passado, se for igual ao primeiro nome OU ultimo nome, chamar o obj, se não, retornar o obj vazio.
+  // reduzir o array pelo nome passado no parâmetro, se for igual ao primeiro nome OU ultimo nome, chamar o obj, se não, retornar o obj vazio.
   const employeeByName = employees.reduce((accumulator, currentValue) => {
     if (currentValue.firstName === employeeName || currentValue.lastName === employeeName) {
       return currentValue;
     } return accumulator;
-  }, {}); // {} -> valor inicial do array que estou criando.
+  }, {}); // valor inicial do array que estou criando.
   return employeeByName;
 }
 
@@ -36,6 +37,8 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
+  const checkManagers = employees.map((person) => person.managers); // novo array só de gerentes, sem alterar o original.
+  return checkManagers.some((managerId) => managerId.includes(id)); // confere se pelo menos um nome do manager contém o parâmetro Id dado é true ou false.
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // default parameters, parâmetro definido para não dar erro na função.
@@ -48,6 +51,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     responsibleFor,
   });
   return newEmployee;
+  // função push() add elementos na variável.
 }
 
 function countAnimals(specie) {
