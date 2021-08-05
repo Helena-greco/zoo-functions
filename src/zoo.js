@@ -56,6 +56,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(specie) {
   // seu código aqui
+  if (specie === undefined) {
+    const countingAnimals = species.reduce((accumulator, currentValue) => {
+      accumulator[currentValue.name] = currentValue.residents.length; // acc na posição do nome, será atribuído o comprimento do array de residents.
+      return accumulator; // retorna o nome: quantidade.
+    }, {});
+    return countingAnimals;
+  }
+  const countPerAnimal = species.find((animal) => animal.name === specie); // se o nome for passado no parâmetro, vai ser conferido com o nome do animal a condição e passar somente a quantidade daquele animal.
+  return countPerAnimal.residents.length; // retorna só a quantidade.
 }
 
 function calculateEntry(entrants) {
