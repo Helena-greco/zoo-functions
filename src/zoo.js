@@ -12,9 +12,9 @@ console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
 
 function getAnimalsOlderThan(animal, ages) {
   // seu código aqui
-  const animals = species.find((animalName) => animalName.name === animal); // Procurar pelo nome.
+  const animals = species.find((animalName) => animalName.name === animal); // Procura o nome dado no parâmetro dentro do objeto.
   return animals.residents.every((idade) => idade.age >= ages);
-  // verificar se todas as idades possuem a idade mínima específica. Retorna true ou false.
+  // verificar se todas as idades dos animais no obj possuem a idade mínima específica. Retorna true ou false.
 }
 
 function getEmployeeByName(employeeName) {
