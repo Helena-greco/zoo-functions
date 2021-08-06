@@ -55,7 +55,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(specie) {
   // seu código aqui
-  if (specie === undefined) {
+  if (!specie) {
     const countingAnimals = species.reduce((accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.residents.length; // acc na posição do nome, será atribuído o comprimento do array de residents.
       return accumulator; // retorna o nome: quantidade.
@@ -79,8 +79,6 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
   // seu código aqui
 }
-
-// const { hours } = require('./data');
 
 function getSchedule(dayName) {
   // seu código aqui
@@ -107,9 +105,18 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
+/** Ref: https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessarya/ */
 function increasePrices(percentage) {
   // seu código aqui
-
+  const calculatingPrice = (price) => {
+    const increase = percentage / 100;
+    const totalPrice = price + price * increase;
+    return Math.round(totalPrice * 100) / 100;
+  };
+  const { Adult, Senior, Child } = prices;
+  prices.Adult = calculatingPrice(Adult); // calculando o aumento do preço original.
+  prices.Senior = calculatingPrice(Senior);
+  prices.Child = calculatingPrice(Child);
 }
 
 function getEmployeeCoverage(idOrName) {
