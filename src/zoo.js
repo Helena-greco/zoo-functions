@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) { // todos os elementos id como parâmetro.
@@ -68,8 +68,8 @@ function countAnimals(specie) {
 
 function calculateEntry(entrants) {
   // seu código aqui
-  if (!entrants) { return 0; }
-  const { Adult = 0, Senior = 0, Child = 0 } = entrants;
+  if (!entrants) { return 0; } // se não tiver parâmetro ou for vazio.
+  const { Adult = 0, Senior = 0, Child = 0 } = entrants; // definir um valor padrão.
   const total1 = prices.Adult * Adult;
   const total2 = prices.Senior * Senior;
   const total3 = prices.Child * Child;
@@ -80,9 +80,27 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+// const { hours } = require('./data');
+
 function getSchedule(dayName) {
   // seu código aqui
+  // const { hours } = require('./data');
+  const weekObj = Object.entries(hours); // resgatar os pares de chaves e valores.
+  // console.log(weekObj);
+  const schedule = weekObj.reduce((dayObj, day) => { // index 1 de entries (obj das horas).
+    if (day[1].open === 0 || day[1].close === 0) {
+      dayObj[day[0]] = 'CLOSED'; // index 0 de entries (String dos dias da semana).
+      return dayObj;
+    }
+    dayObj[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+    return dayObj;
+  }, {}); // senão, retorna legível para humano. Add o parâmento {} e o nome do dia com o seu valor.
+  // console.log(schedule);
+  if (!dayName) return schedule; // não tendo parâmetro, retorna todos os dias legíveis
+  return { [dayName]: schedule[dayName] };
 }
+
+// console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
