@@ -88,12 +88,13 @@ function getSchedule(dayName) {
   const weekObj = Object.entries(hours); // resgatar os pares de chaves e valores.
   // console.log(weekObj);
   const schedule = weekObj.reduce((dayObj, day) => { // index 1 de entries (obj das horas).
+    const obj = dayObj;
     if (day[1].open === 0 || day[1].close === 0) {
-      dayObj[day[0]] = 'CLOSED'; // index 0 de entries (String dos dias da semana).
-      return dayObj;
+      obj[day[0]] = 'CLOSED'; // index 0 de entries (String dos dias da semana).
+      return obj;
     }
-    dayObj[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
-    return dayObj;
+    obj[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+    return obj;
   }, {}); // senão, retorna legível para humano. Add o parâmento {} e o nome do dia com o seu valor.
   // console.log(schedule);
   if (!dayName) return schedule; // não tendo parâmetro, retorna todos os dias legíveis
@@ -108,6 +109,7 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+
 }
 
 function getEmployeeCoverage(idOrName) {
