@@ -2,7 +2,6 @@ const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) { // todos os elementos id como parâmetro.
-  // seu código aqui
   const speciesByIds = species.filter((specie, index) => specie.id === ids[index]); // cria um novo array que passa na condição do id ser estritamente igual.
   return speciesByIds;
 }
@@ -10,14 +9,12 @@ function getSpeciesByIds(...ids) { // todos os elementos id como parâmetro.
 console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
 
 function getAnimalsOlderThan(animal, ages) {
-  // seu código aqui
   const animals = species.find((animalName) => animalName.name === animal); // Procura o nome dado no parâmetro dentro do objeto.
   return animals.residents.every((idade) => idade.age >= ages);
   // verificar se todas as idades dos animais no obj possuem a idade mínima específica. Retorna true ou false.
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   // reduzir o array pelo nome passado no parâmetro, se for igual ao primeiro nome OU ultimo nome, chamar o obj, se não, retornar o obj vazio.
   const employeeByName = employees.reduce((accumulator, currentValue) => {
     if (currentValue.firstName === employeeName || currentValue.lastName === employeeName) {
@@ -28,20 +25,20 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
   const newEmployee = { ...personalInfo, ...associatedWith }; // spread operator para juntar os valores dos objs.
   return newEmployee;
 }
 
 /** Ref: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/includes */
+
 function isManager(id) {
-  // seu código aqui
-  const checkManagers = employees.some((managerId) => managerId.managers.includes(id)); // confere se pelo menos um nome do manager contém o parâmetro Id dado se é true ou false.
+  // confere se pelo menos um nome do manager contém o parâmetro Id dado se é true ou false.
+  const checkManagers = employees.some((managerId) => managerId.managers.includes(id));
   return checkManagers;
 }
 
-function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // default parameters, parâmetro definido para definir o valor do elemento no obj.
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  // default parameters, parâmetro definido para definir o valor do elemento no obj.
   const newEmployee = employees.push({
     id,
     firstName,
@@ -50,25 +47,22 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     responsibleFor,
   });
   return newEmployee;
-  // função push() add elementos na variável.
 }
 
 function countAnimals(specie) {
-  // seu código aqui
   if (!specie) {
     const countingAnimals = species.reduce((accumulator, currentValue) => {
-      accumulator[currentValue.name] = currentValue.residents.length; // acc na posição do nome, será atribuído o comprimento do array de residents.
+      accumulator[currentValue.name] = currentValue.residents.length;
       return accumulator; // retorna o nome: quantidade.
     }, {});
     return countingAnimals;
   }
-  const countPerAnimal = species.find((animal) => animal.name === specie); // se o nome for passado no parâmetro, vai ser conferido com o nome do animal a condição e passar somente a quantidade daquele animal.
+  const countPerAnimal = species.find((animal) => animal.name === specie); // nome do animal === parâmetro.
   return countPerAnimal.residents.length; // retorna só a quantidade.
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
-  if (!entrants) { return 0; } // se não tiver parâmetro ou for vazio.
+  if (!entrants) return 0;
   const { Adult = 0, Senior = 0, Child = 0 } = entrants; // definir um valor padrão.
   const total1 = prices.Adult * Adult;
   const total2 = prices.Senior * Senior;
@@ -81,33 +75,36 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
-  // const { hours } = require('./data');
   const weekObj = Object.entries(hours); // resgatar os pares de chaves e valores.
-  // console.log(weekObj);
-  const schedule = weekObj.reduce((dayObj, day) => { // index 1 de entries (obj das horas).
+  const schedule = weekObj.reduce((dayObj, day) => { // index 1 de entries.
     const obj = dayObj;
     if (day[1].open === 0 || day[1].close === 0) {
-      obj[day[0]] = 'CLOSED'; // index 0 de entries (String dos dias da semana).
+      obj[day[0]] = 'CLOSED'; // index 0 de entries.
       return obj;
     }
     obj[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
     return obj;
-  }, {}); // senão, retorna legível para humano. Add o parâmento {} e o nome do dia com o seu valor.
-  // console.log(schedule);
-  if (!dayName) return schedule; // não tendo parâmetro, retorna todos os dias legíveis
+  }, {});
+  if (!dayName) return schedule;
   return { [dayName]: schedule[dayName] };
 }
 
-// console.log(getSchedule('Tuesday'));
-
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const manager = employees.find((name) => name.id === id); // comparar o gerenteId com o parâmetro.
+  const responsible = manager.responsibleFor; // puxar quais animais são gerenciados.
+  const managedAnimal = species.find((animalId) => animalId.id === responsible[0]); // pegar o PRIMEIRO animal.
+  const compareAges = managedAnimal.residents.reduce((oldest, tested) => {
+    if (oldest.age > tested.age) {
+      return oldest;
+    } return tested;
+  });
+  return [compareAges.name, compareAges.sex, compareAges.age]; // só os valores
 }
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 /** Ref: https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessarya/ */
+
 function increasePrices(percentage) {
-  // seu código aqui
   const calculatingPrice = (price) => {
     const increase = percentage / 100;
     const totalPrice = price + price * increase;
